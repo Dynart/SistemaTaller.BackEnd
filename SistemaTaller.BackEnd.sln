@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SistemaTaller.BackEnd.DB", "SistemaTaller.BackEnd.DB\SistemaTaller.BackEnd.DB.sqlproj", "{BA98447B-562E-423C-ACE8-7DE639AA2656}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaTaller.BackEnd.API", "SistemaTaller.BackEnd.API\SistemaTaller.BackEnd.API.csproj", "{7A48CD1C-BBC0-42A3-A47F-9F095A3EE6FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{BA98447B-562E-423C-ACE8-7DE639AA2656}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA98447B-562E-423C-ACE8-7DE639AA2656}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BA98447B-562E-423C-ACE8-7DE639AA2656}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7A48CD1C-BBC0-42A3-A47F-9F095A3EE6FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A48CD1C-BBC0-42A3-A47F-9F095A3EE6FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A48CD1C-BBC0-42A3-A47F-9F095A3EE6FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A48CD1C-BBC0-42A3-A47F-9F095A3EE6FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

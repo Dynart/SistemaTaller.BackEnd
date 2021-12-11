@@ -7,6 +7,6 @@
 	AS
 	BEGIN
 	UPDATE Vehiculos SET Matricula = @Matricula, MarcaVehiculo = @MarcaVehiculo, Modelo = @Modelo,
-	ModificadoPor = @ModificadoPor, FechaCreacion = GETDATE()
-	WHERE Matricula = Matricula
+	ModificadoPor = @ModificadoPor, FechaModificacion = @FechaModificacion
+	WHERE Matricula = @Matricula
 	END
