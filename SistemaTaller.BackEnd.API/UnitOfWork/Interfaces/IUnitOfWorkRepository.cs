@@ -10,5 +10,7 @@ namespace SistemaTaller.BackEnd.API.UnitOfWork.Interfaces
     public interface IUnitOfWorkRepository
     {
         IVehiculosRepository VehiculosRepository { get; }
+        IClientesRepository ClientesRepository {get;}
+        IMecanicosRepository MecanicosRepository { get; }
     }
 }
