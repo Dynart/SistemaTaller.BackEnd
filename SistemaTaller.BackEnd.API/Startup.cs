@@ -39,8 +39,6 @@ namespace SistemaTaller.BackEnd.API
 
             services.AddTransient<IUnitOfWork, UnitOfWorkSqlServer>();
             services.AddTransient<IVehiculosService, VehiculosService>();
-            services.AddTransient<IClientesService, ClientesService>();
-            services.AddTransient<IMecanicosService, MecanicosService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

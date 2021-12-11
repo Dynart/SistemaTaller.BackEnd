@@ -13,16 +13,11 @@ namespace SistemaTaller.BackEnd.API.UnitOfWork.SqlServer
     {
 
         public IVehiculosRepository VehiculosRepository { get; }
-        public IClientesRepository ClientesRepository { get; }
-        public IMecanicosRepository MecanicosRepository { get; }
-
 
         //Acá van todos los otros repositorios
         public UnitOfWorkSqlServerRepository(SqlConnection context, SqlTransaction transaction)
         {
             VehiculosRepository = new VehiculosRepository(context, transaction);
-            ClientesRepository = new ClientesRepository(context, transaction);
-            MecanicosRepository = new MecanicosRepository(context, transaction);
             //Acá van todos los otros repositorios
 
         }
