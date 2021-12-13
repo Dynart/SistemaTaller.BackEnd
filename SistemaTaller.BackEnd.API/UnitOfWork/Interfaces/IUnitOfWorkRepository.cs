@@ -13,5 +13,6 @@ namespace SistemaTaller.BackEnd.API.UnitOfWork.Interfaces
         IClientesRepository ClientesRepository {get;}
         IMecanicosRepository MecanicosRepository { get; }
         ITalleresRepository TalleresRepository { get; }
+        IMecanicosDeTalleresRepository MecanicosDeTalleresRepository { get; }
     }
 }

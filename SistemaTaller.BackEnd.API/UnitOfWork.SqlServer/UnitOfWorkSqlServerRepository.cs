@@ -16,6 +16,7 @@ namespace SistemaTaller.BackEnd.API.UnitOfWork.SqlServer
         public IClientesRepository ClientesRepository { get; }
         public IMecanicosRepository MecanicosRepository { get; }
         public ITalleresRepository TalleresRepository { get; }
+        public IMecanicosDeTalleresRepository MecanicosDeTalleresRepository { get; }
 
 
         //Acá van todos los otros repositorios
@@ -25,6 +26,7 @@ namespace SistemaTaller.BackEnd.API.UnitOfWork.SqlServer
             ClientesRepository = new ClientesRepository(context, transaction);
             MecanicosRepository = new MecanicosRepository(context, transaction);
             TalleresRepository = new TalleresRepository(context, transaction);
+            MecanicosDeTalleresRepository = new MecanicosDeTalleresRepository(context, transaction);
             //Acá van todos los otros repositorios
 
         }
