@@ -43,6 +43,11 @@ namespace SistemaTaller.BackEnd.API
             services.AddTransient<IMecanicosService, MecanicosService>();
             services.AddTransient<ITalleresService, TalleresService>();
             services.AddTransient<IMecanicosDeTalleresService, MecanicosDeTalleresService>();
+            services.AddTransient<IVehiculosDeClientesService, VehiculosDeClientesService>();
+            services.AddTransient<IRepuestosService, RepuestosService>();
+            services.AddTransient<IEstadoReparacionesService, EstadoReparacionesService>();
+            services.AddTransient<IReparacionesService, ReparacionesService>();
+            services.AddTransient<IRepuestosDeReparacionesService, RepuestosDeReparacionesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

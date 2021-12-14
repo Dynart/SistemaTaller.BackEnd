@@ -1,8 +1,4 @@
-﻿
-
-
-using SistemaTaller.BackEnd.API.Repository.Interfaces;
-using SistemaTaller.BackEnd.API.Repository;
+﻿using SistemaTaller.BackEnd.API.Repository;
 using SistemaTaller.BackEnd.API.UnitOfWork.Interfaces;
 using System.Data.SqlClient;
 using SistemaTaller.BackEnd.API.RepositorySQL;
@@ -18,8 +14,14 @@ namespace SistemaTaller.BackEnd.API.UnitOfWork.SqlServer
         public ITalleresRepository TalleresRepository { get; }
         public IMecanicosDeTalleresRepository MecanicosDeTalleresRepository { get; }
 
+        public IVehiculosDeClientesRepository VehiculosDeClientesRepository { get; }
+        public IRepuestosRepository RepuestosRepository { get; }
+        public IEstadoReparacionesRepository EstadoReparacionesRepository { get; }
+        public IReparacionesRepository ReparacionesRepository { get; }
+        public IRepuestosDeReparacionesRepository RepuestosDeReparacionesRepository { get; }
 
-        //Acá van todos los otros repositorios
+
+
         public UnitOfWorkSqlServerRepository(SqlConnection context, SqlTransaction transaction)
         {
             VehiculosRepository = new VehiculosRepository(context, transaction);
@@ -27,7 +29,12 @@ namespace SistemaTaller.BackEnd.API.UnitOfWork.SqlServer
             MecanicosRepository = new MecanicosRepository(context, transaction);
             TalleresRepository = new TalleresRepository(context, transaction);
             MecanicosDeTalleresRepository = new MecanicosDeTalleresRepository(context, transaction);
-            //Acá van todos los otros repositorios
+            VehiculosDeClientesRepository = new VehiculosDeClientesRepository(context, transaction);
+            RepuestosRepository = new RepuestosRepository(context, transaction);
+            EstadoReparacionesRepository = new EstadoReparacionesRepository(context, transaction);
+            ReparacionesRepository = new ReparacionesRepository(context, transaction);
+            RepuestosDeReparacionesRepository = new RepuestosDeReparacionesRepository(context, transaction);
+            
 
         }
 
