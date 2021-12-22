@@ -73,9 +73,36 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
 
         }
 
-        public IEnumerable<Reparaciones> SeleccionarTodos()
+        public List<Reparaciones> SeleccionarTodos()
         {
-            throw new NotImplementedException();
+            var query = "SELECT * FROM vwReparaciones_SeleccionarTodo";
+            var command = CreateCommand(query);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            List<Reparaciones> listReparaciones = new List<Reparaciones>();
+
+            while (reader.Read())
+            {
+                Reparaciones reparacionesSelect = new();
+
+                reparacionesSelect.NumeroReparacion = Convert.ToInt32(reader["NumeroReparacion"]);
+                reparacionesSelect.FechaEstimadaDeReparacion = Convert.ToDateTime(reader["FechaEstimadaDeReparacion"]);
+                reparacionesSelect.MontoManoDeObra = Convert.ToDecimal(reader["MontoManoDeObra"]);
+                reparacionesSelect.MontoRepuestos = Convert.ToDecimal(reader["MontoRepuestos"]);
+                reparacionesSelect.MontoTotal = Convert.ToDecimal(reader["MontoTotal"]);
+                reparacionesSelect.CedulaMecanico = Convert.ToString(reader["CedulaMecanico"]);
+                reparacionesSelect.Matricula = Convert.ToString(reader["Matricula"]);
+                reparacionesSelect.IdEstadoReparacion = Convert.ToInt32(reader["IdEstadoReparacion"]);
+                reparacionesSelect.Activo = Convert.ToBoolean(reader["Activo"]);
+                reparacionesSelect.FechaCreacion = Convert.ToDateTime(reader["FechaCreacion"]);
+                reparacionesSelect.FechaModificacion = (DateTime?)(reader.IsDBNull("FechaModificacion") ? null : reader["FechaModificacion"]);
+                reparacionesSelect.CreadoPor = Convert.ToString(reader["CreadoPor"]);
+                reparacionesSelect.ModificadoPor = Convert.ToString(reader["ModificadoPor"]);
+            }
+            reader.Close();
+
+            return listReparaciones;
         }
     }
 }

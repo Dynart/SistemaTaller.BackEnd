@@ -67,9 +67,34 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
             return talleresSelect;
         }
 
-        public IEnumerable<Talleres> SeleccionarTodos()
+        public List<Talleres> SeleccionarTodos()
         {
-            throw new NotImplementedException();
+            var query = "SELECT * FROM vwTalleres_SeleccionarTodo";
+            var command = CreateCommand(query);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            List<Talleres> lisTalleres = new List<Talleres>();
+
+            while (reader.Read())
+            {
+                Talleres talleresSelect = new();
+
+                talleresSelect.CedulaJuridica = Convert.ToString(reader["CedulaJuridica"]);
+                talleresSelect.Nombre = Convert.ToString(reader["Nombre"]);
+                talleresSelect.Direccion = Convert.ToString(reader["Direccion"]);
+                talleresSelect.Telefono = Convert.ToString(reader["Telefono"]);
+                talleresSelect.Activo = Convert.ToBoolean(reader["Activo"]);
+                talleresSelect.FechaCreacion = Convert.ToDateTime(reader["FechaCreacion"]);
+                talleresSelect.FechaModificacion = (DateTime?)(reader.IsDBNull("FechaModificacion") ? null : reader["FechaModificacion"]);
+                talleresSelect.CreadoPor = Convert.ToString(reader["CreadoPor"]);
+                talleresSelect.ModificadoPor = Convert.ToString(reader["ModificadoPor"]);
+
+                lisTalleres.Add(talleresSelect);
+            }
+            reader.Close();
+
+            return lisTalleres;
         }
     }
 }

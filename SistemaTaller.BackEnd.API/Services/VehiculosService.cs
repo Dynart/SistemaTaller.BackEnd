@@ -55,9 +55,16 @@ namespace SistemaTaller.BackEnd.API.Services
             return vehiculosSelect;
         }
 
-        public IEnumerable<Vehiculos> SeleccionarTodos()
+        public List<Vehiculos> SeleccionarTodos()
         {
-            throw new NotImplementedException();
+            List<Vehiculos> vehiculosList;
+
+            using(var bd = BD.Conectar())
+            {
+                vehiculosList = bd.Repositories.VehiculosRepository.SeleccionarTodos();
+                bd.SaveChanges();
+            }
+            return vehiculosList;
         }
     }
 }

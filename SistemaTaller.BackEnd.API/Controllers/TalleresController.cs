@@ -22,9 +22,21 @@ namespace SistemaTaller.BackEnd.API.Controllers
         }
         // GET: api/<TalleresController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<TalleresDto> Get()
         {
-            return new string[] { "value1", "value2" };
+            List<Talleres> lisTalleres = Talleres.SeleccionarTodos();
+
+            List<TalleresDto> lisTalleresDto = new();
+
+            foreach (var talleresSelect in lisTalleres)
+            {
+                TalleresDto talleresDto = new();
+
+                talleresDto.CedulaJuridica = talleresSelect.CedulaJuridica;
+
+                lisTalleresDto.Add(talleresDto);
+            }
+            return lisTalleresDto;
         }
 
         // GET api/<TalleresController>/5

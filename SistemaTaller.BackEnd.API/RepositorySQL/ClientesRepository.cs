@@ -17,9 +17,24 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
             this._context = context;
             this._transaction = transaction;
         }
-        public void Actualizar(Clientes t)
+        public void Actualizar(Clientes clientes)
         {
-            throw new NotImplementedException();
+             var query = "UPDATE Clientes SET CedulaCliente = @CedulaCliente, Nombre = @Nombre, Apellidos = @Apellidos, Telefono = @Telefono, Email = @Email, Direccion = @Direccion, VehiculoMatricula = @VehiculoMatricula, ModificadoPor = @ModificadoPor, FechaModificacion = @FechaModificacion WHERE CedulaCliente = CedulaCliente";
+             var command = CreateCommand(query);
+
+
+            command.Parameters.AddWithValue("@CedulaCliente", clientes.CedulaCliente);
+            command.Parameters.AddWithValue("@Nombre", clientes.Nombre);
+            command.Parameters.AddWithValue("@Apellidos", clientes.Apellidos);
+            command.Parameters.AddWithValue("@Telefono", clientes.Telefono);
+            command.Parameters.AddWithValue("@Email", clientes.Email);
+            command.Parameters.AddWithValue("@Direccion", clientes.Direccion);
+            command.Parameters.AddWithValue("@VehiculoMatricula", clientes.VehiculoMatricula);
+            command.Parameters.AddWithValue("@ModificadoPor", clientes.ModificadoPor);
+            command.Parameters.AddWithValue("@FechaModificacion", clientes.FechaModificacion);
+
+            command.ExecuteNonQuery();
+
         }
 
         public void Elimnar()
@@ -30,20 +45,20 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
         public void Insertar(Clientes clientes)
         {
             var query = "SP_Clientes_Insert";
-            var comand = CreateCommand(query);
+            var command = CreateCommand(query);
 
-            comand.CommandType = CommandType.StoredProcedure;
+            command.CommandType = CommandType.StoredProcedure;
 
-            comand.Parameters.AddWithValue("@CedulaCliente", clientes.CedulaCliente);
-            comand.Parameters.AddWithValue("@Nombre", clientes.Nombre);
-            comand.Parameters.AddWithValue("@Apellidos", clientes.Apellidos);
-            comand.Parameters.AddWithValue("@Telefono", clientes.Telefono);
-            comand.Parameters.AddWithValue("@Email", clientes.Email);
-            comand.Parameters.AddWithValue("@Direccion", clientes.Direccion);
-            comand.Parameters.AddWithValue("@VehiculoMatricula", clientes.VehiculoMatricula);
-            comand.Parameters.AddWithValue("@CreadoPor", clientes.CreadoPor);
+            command.Parameters.AddWithValue("@CedulaCliente", clientes.CedulaCliente);
+            command.Parameters.AddWithValue("@Nombre", clientes.Nombre);
+            command.Parameters.AddWithValue("@Apellidos", clientes.Apellidos);
+            command.Parameters.AddWithValue("@Telefono", clientes.Telefono);
+            command.Parameters.AddWithValue("@Email", clientes.Email);
+            command.Parameters.AddWithValue("@Direccion", clientes.Direccion);
+            command.Parameters.AddWithValue("@VehiculoMatricula", clientes.VehiculoMatricula);
+            command.Parameters.AddWithValue("@CreadoPor", clientes.CreadoPor);
 
-            comand.ExecuteNonQuery();
+            command.ExecuteNonQuery();
 
         }
 
@@ -73,9 +88,35 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
             return clientesSelect;
         }
 
-        public IEnumerable<Clientes> SeleccionarTodos()
+        public List<Clientes> SeleccionarTodos()
         {
-            throw new NotImplementedException();
+            var query = "SELECT * FROM vwClientes_SeleccionarTodo";
+            var comand = CreateCommand(query);
+
+            SqlDataReader reader = comand.ExecuteReader();
+
+            List<Clientes> lisClientes = new List<Clientes>();
+
+            while (reader.Read())
+            {
+                Clientes clientesSelect = new();
+
+                clientesSelect.CedulaCliente = Convert.ToString(reader["CedulaCliente"]);
+                clientesSelect.Nombre = Convert.ToString(reader["Nombre"]);
+                clientesSelect.Apellidos = Convert.ToString(reader["Apellidos"]);
+                clientesSelect.Telefono = Convert.ToString(reader["Telefono"]);
+                clientesSelect.Email = Convert.ToString(reader["Email"]);
+                clientesSelect.Direccion = Convert.ToString(reader["Direccion"]);
+                clientesSelect.VehiculoMatricula = Convert.ToString(reader["VehiculoMatricula"]);
+                clientesSelect.Activo = Convert.ToBoolean(reader["Activo"]);
+                clientesSelect.FechaCreacion = Convert.ToDateTime(reader["FechaCreacion"]);
+                clientesSelect.FechaModificacion = (DateTime?)(reader.IsDBNull("FechaModificacion") ? null : reader["FechaModificacion"]);
+                clientesSelect.CreadoPor = Convert.ToString(reader["CreadoPor"]);
+                clientesSelect.ModificadoPor = Convert.ToString(reader["ModificadoPor"]);
+            }
+            reader.Close();
+
+            return lisClientes;
         }
     }
 }

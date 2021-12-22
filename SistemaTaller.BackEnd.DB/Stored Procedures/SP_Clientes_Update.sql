@@ -11,6 +11,6 @@
 	AS
 	BEGIN
 	UPDATE Clientes SET CedulaCliente = @CedulaCliente, Nombre = @Nombre, Apellidos = @Apellidos, Telefono = @Telefono, Email = @Email, Direccion = @Direccion,
-	VehiculoMatricula = @VehiculoMatricula, ModificadoPor = @ModificadoPor, FechaCreacion = GETDATE()
+	VehiculoMatricula = @VehiculoMatricula, ModificadoPor = @ModificadoPor, @FechaModificacion = @FechaModificacion
 	WHERE CedulaCliente = CedulaCliente
 	END

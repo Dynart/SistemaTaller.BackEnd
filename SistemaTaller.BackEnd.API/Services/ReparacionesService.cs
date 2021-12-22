@@ -46,7 +46,7 @@ namespace SistemaTaller.BackEnd.API.Services
             return reparacionesSelect;
         }
 
-        public IEnumerable<Reparaciones> SeleccionarTodos()
+        public List<Reparaciones> SeleccionarTodos()
         {
             throw new NotImplementedException();
         }

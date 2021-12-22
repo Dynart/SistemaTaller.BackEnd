@@ -46,7 +46,7 @@ namespace SistemaTaller.BackEnd.API.Services
             return mecanicosTalleresSelect;
         }
 
-        public IEnumerable<MecanicosDeTalleres> SeleccionarTodos()
+        public List<MecanicosDeTalleres> SeleccionarTodos()
         {
             throw new NotImplementedException();
         }

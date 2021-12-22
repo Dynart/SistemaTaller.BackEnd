@@ -8,7 +8,7 @@ namespace SistemaTaller.BackEnd.API.Services.Interfaces
 {
    public interface IMecanicosService
     {
-        IEnumerable<Mecanicos> SeleccionarTodos();
+        List<Mecanicos> SeleccionarTodos();
         Mecanicos SeleccionarPorId(string id);
         void Insertar(Mecanicos model);
         void Actualizar(Mecanicos model);

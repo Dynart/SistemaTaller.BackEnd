@@ -18,7 +18,12 @@ namespace SistemaTaller.BackEnd.API.Services
 
         public void Actualizar(Clientes model)
         {
-            throw new NotImplementedException();
+            using (var bd = BD.Conectar())
+            {
+                bd.Repositories.ClientesRepository.Actualizar(model);
+
+                bd.SaveChanges();
+            }
         }
 
         public void Eliminar(int id)
@@ -47,9 +52,16 @@ namespace SistemaTaller.BackEnd.API.Services
             return clientesSelect;
         }
 
-        public IEnumerable<Clientes> SeleccionarTodos()
+        public List<Clientes> SeleccionarTodos()
         {
-            throw new NotImplementedException();
+            List<Clientes> clientesList;
+
+            using (var bd = BD.Conectar())
+            {
+                clientesList = bd.Repositories.ClientesRepository.SeleccionarTodos();
+                bd.SaveChanges();
+            }
+            return clientesList;
         }
     }
 }

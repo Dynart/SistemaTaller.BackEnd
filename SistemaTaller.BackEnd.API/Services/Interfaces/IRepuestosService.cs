@@ -8,7 +8,7 @@ namespace SistemaTaller.BackEnd.API.Services.Interfaces
 {
     public interface IRepuestosService
     {
-        IEnumerable<Repuestos> SeleccionarTodos();
+        List<Repuestos> SeleccionarTodos();
         Repuestos SeleccionarPorId(string id);
         void Insertar(Repuestos model);
         void Actualizar(Repuestos model);

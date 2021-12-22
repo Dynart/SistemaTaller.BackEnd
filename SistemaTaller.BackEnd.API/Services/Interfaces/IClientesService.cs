@@ -8,7 +8,7 @@ namespace SistemaTaller.BackEnd.API.Services.Interfaces
 {
     public interface IClientesService
     {
-        IEnumerable<Clientes> SeleccionarTodos();
+        List<Clientes> SeleccionarTodos();
         Clientes SeleccionarPorId(string id);
         void Insertar(Clientes model);
         void Actualizar(Clientes model);

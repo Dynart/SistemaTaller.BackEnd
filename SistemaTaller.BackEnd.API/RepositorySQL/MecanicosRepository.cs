@@ -69,9 +69,35 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
             return mecanicosSelect;
         }
 
-        public IEnumerable<Mecanicos> SeleccionarTodos()
+        public List<Mecanicos> SeleccionarTodos()
         {
-            throw new NotImplementedException();
+            var query = "SELECT * FROM vwMecanicos_SeleccionarTodo";
+            var comand = CreateCommand(query);            
+
+            SqlDataReader reader = comand.ExecuteReader();
+
+            List<Mecanicos> listMecanicos = new List<Mecanicos>();
+
+            while (reader.Read())
+            {
+                Mecanicos mecanicosSelect = new();
+
+                mecanicosSelect.CedulaMecanico = Convert.ToString(reader["CedulaMecanico"]);
+                mecanicosSelect.Nombre = Convert.ToString(reader["Nombre"]);
+                mecanicosSelect.Apellidos = Convert.ToString(reader["Apellidos"]);
+                mecanicosSelect.Telefono = Convert.ToString(reader["Telefono"]);
+                mecanicosSelect.Salario = Convert.ToDecimal(reader["Salario"]);
+                mecanicosSelect.Activo = Convert.ToBoolean(reader["Activo"]);
+                mecanicosSelect.FechaCreacion = Convert.ToDateTime(reader["FechaCreacion"]);
+                mecanicosSelect.FechaModificacion = (DateTime?)(reader.IsDBNull("FechaModificacion") ? null : reader["FechaModificacion"]);
+                mecanicosSelect.CreadoPor = Convert.ToString(reader["CreadoPor"]);
+                mecanicosSelect.ModificadoPor = Convert.ToString(reader["ModificadoPor"]);
+
+
+            }
+            reader.Close();
+
+            return listMecanicos;
         }
     }
 }

@@ -22,9 +22,23 @@ namespace SistemaTaller.BackEnd.API.Controllers
         }
         // GET: api/<ClientesController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<ClientesDto> Get()
         {
-            return new string[] { "value1", "value2" };
+            List<Clientes> lisClientes = Clientes.SeleccionarTodos();
+
+            List<ClientesDto> lisClientesDto = new List<ClientesDto>();
+
+            foreach (var clienteSelect in lisClientes)
+            {
+                ClientesDto clientesDto = new();
+
+                clientesDto.CedulaCliente = clientesDto.CedulaCliente;
+
+                lisClientesDto.Add(clientesDto);
+
+            }
+            return lisClientesDto;
+
         }
 
         // GET api/<ClientesController>/5
@@ -79,8 +93,38 @@ namespace SistemaTaller.BackEnd.API.Controllers
 
         // PUT api/<ClientesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(string id, [FromBody] ClientesDto clientesDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.Values);
+            }
+
+            Clientes clientesSelect = new();
+
+            clientesSelect = Clientes.SeleccionarPorId(id);
+
+            if (clientesSelect.CedulaCliente is null)
+            {
+                return NotFound("El Cliente no existe");
+            }
+
+            Clientes clientesUpdate = new();
+
+            clientesUpdate.CedulaCliente = clientesDto.CedulaCliente;
+            clientesUpdate.Nombre = clientesDto.Nombre;
+            clientesUpdate.Apellidos = clientesDto.Apellidos;
+            clientesUpdate.Telefono = clientesDto.Telefono;
+            clientesUpdate.Email = clientesDto.Email;
+            clientesUpdate.Direccion = clientesDto.Direccion;
+            clientesUpdate.VehiculoMatricula = clientesDto.VehiculoMatricula;
+
+            clientesSelect.FechaModificacion = System.DateTime.Now;
+            clientesSelect.ModificadoPor = "Dynart";
+
+            Clientes.Actualizar(clientesUpdate);
+
+            return Ok();
         }
 
         // DELETE api/<ClientesController>/5

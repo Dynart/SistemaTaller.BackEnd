@@ -8,7 +8,7 @@ namespace SistemaTaller.BackEnd.API.Services.Interfaces
 {
     public interface IReparacionesService
     {
-        IEnumerable<Reparaciones> SeleccionarTodos();
+        List<Reparaciones> SeleccionarTodos();
         Reparaciones SeleccionarPorId(string id);
         void Insertar(Reparaciones model);
         void Actualizar(Reparaciones model);

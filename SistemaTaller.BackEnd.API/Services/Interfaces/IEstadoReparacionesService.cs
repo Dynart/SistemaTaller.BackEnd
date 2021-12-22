@@ -8,7 +8,7 @@ namespace SistemaTaller.BackEnd.API.Services.Interfaces
 {
    public interface IEstadoReparacionesService
     {
-        IEnumerable<EstadoReparaciones> SeleccionarTodos();
+        List<EstadoReparaciones> SeleccionarTodos();
         EstadoReparaciones SeleccionarPorId(string id);
         void Insertar(EstadoReparaciones model);
         void Actualizar(EstadoReparaciones model);

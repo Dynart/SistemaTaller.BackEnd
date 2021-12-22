@@ -36,6 +36,12 @@ namespace SistemaTaller.BackEnd.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SistemaTaller.BackEnd.API", Version = "v1" });
             });
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+                c.AddPolicy("AllowHeaders", options => options.AllowAnyHeader());
+                c.AddPolicy("AllowHeaders", options => options.AllowAnyMethod());
+            });
 
             services.AddTransient<IUnitOfWork, UnitOfWorkSqlServer>();
             services.AddTransient<IVehiculosService, VehiculosService>();
@@ -59,6 +65,7 @@ namespace SistemaTaller.BackEnd.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SistemaTaller.BackEnd.API v1"));
             }
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseHttpsRedirection();
 

@@ -47,7 +47,7 @@ namespace SistemaTaller.BackEnd.API.Services
             return talleresSelect;
         }
 
-        public IEnumerable<Talleres> SeleccionarTodos()
+        public List<Talleres> SeleccionarTodos()
         {
             throw new NotImplementedException();
         }

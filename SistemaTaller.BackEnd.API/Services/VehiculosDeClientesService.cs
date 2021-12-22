@@ -46,7 +46,7 @@ namespace SistemaTaller.BackEnd.API.Services
             return vehiculosDeClientesSelect;
         }
 
-        public IEnumerable<VehiculosDeClientes> SeleccionarTodos()
+        public List<VehiculosDeClientes> SeleccionarTodos()
         {
             throw new NotImplementedException();
         }

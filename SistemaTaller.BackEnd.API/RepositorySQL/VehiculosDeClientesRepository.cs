@@ -63,9 +63,32 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
             return vehiculosDeClientesSelect;
         }
 
-        public IEnumerable<VehiculosDeClientes> SeleccionarTodos()
+        public List<VehiculosDeClientes> SeleccionarTodos()
         {
-            throw new NotImplementedException();
+            var query = "SELECT * FROM vwVehiculosDeClientes_SeleccionarTodos";
+            var command = CreateCommand(query);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            List<VehiculosDeClientes> lisVehiculosClientes = new List<VehiculosDeClientes>();
+
+            while (reader.Read())
+            {
+                VehiculosDeClientes vehiculosSelect = new();
+
+                vehiculosSelect.Matricula = Convert.ToString(reader["Matricula"]);
+                vehiculosSelect.CedulaCliente = Convert.ToString(reader["CedulaCliente"]);
+                vehiculosSelect.Activo = Convert.ToBoolean(reader["Activo"]);
+                vehiculosSelect.FechaCreacion = Convert.ToDateTime(reader["FechaCreacion"]);
+                vehiculosSelect.FechaModificacion = (DateTime?)(reader.IsDBNull("FechaModificacion") ? null : reader["FechaModificacion"]);
+                vehiculosSelect.CreadoPor = Convert.ToString(reader["CreadoPor"]);
+                vehiculosSelect.ModificadoPor = Convert.ToString(reader["ModificadoPor"]);
+
+                lisVehiculosClientes.Add(vehiculosSelect);
+            }
+            reader.Close();
+
+            return lisVehiculosClientes;
         }
     }
 }

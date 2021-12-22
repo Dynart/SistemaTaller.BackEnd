@@ -62,9 +62,29 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
             return estadoSelect;
         }
 
-        public IEnumerable<EstadoReparaciones> SeleccionarTodos()
+        public List<EstadoReparaciones> SeleccionarTodos()
         {
-            throw new NotImplementedException();
+            var query = "SELECT * FROM vwEstadoDeReparaciones_SeleccionarTodo";
+            var command = CreateCommand(query);            
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            List<EstadoReparaciones> lisEstadoReparaciones = new List<EstadoReparaciones>();
+
+            while (reader.Read())
+            {
+                EstadoReparaciones estadoSelect = new();
+                estadoSelect.IdEstadoReparacion = Convert.ToInt32(reader["IdEstadoReparacion"]);
+                estadoSelect.NombreEstado = Convert.ToString(reader["NombreEstado"]);
+                estadoSelect.Activo = Convert.ToBoolean(reader["Activo"]);
+                estadoSelect.FechaCreacion = Convert.ToDateTime(reader["FechaCreacion"]);
+                estadoSelect.FechaModificacion = (DateTime?)(reader.IsDBNull("FechaModificacion") ? null : reader["FechaModificacion"]);
+                estadoSelect.CreadoPor = Convert.ToString(reader["CreadoPor"]);
+                estadoSelect.ModificadoPor = Convert.ToString(reader["ModificadoPor"]);
+
+            }
+            reader.Close();
+            return lisEstadoReparaciones;
         }
     }
 }

@@ -69,9 +69,34 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
             return repuestosSelect;
         }
 
-        public IEnumerable<Repuestos> SeleccionarTodos()
+        public List<Repuestos> SeleccionarTodos()
         {
-            throw new NotImplementedException();
+            var query = "SELECT * FROM vwRepuestosDeReparacion_SeleccionarTodo";
+            var command = CreateCommand(query);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            List<Repuestos> lisRespuestos = new List<Repuestos>();
+
+            while (reader.Read())
+            {
+                Repuestos repuestosSelect = new();
+
+                repuestosSelect.CodigoRepuesto = Convert.ToString(reader["CodigoRepuesto"]);
+                repuestosSelect.Marca = Convert.ToString(reader["Marca"]);
+                repuestosSelect.Tipo = Convert.ToString(reader["Tipo"]);
+                repuestosSelect.FechaCompra = Convert.ToDateTime(reader["FechaCompra"]);
+                repuestosSelect.Precio = Convert.ToDecimal(reader["Precio"]);
+                repuestosSelect.Activo = Convert.ToBoolean(reader["Activo"]);
+                repuestosSelect.FechaCompra = Convert.ToDateTime(reader["FechaCreacion"]);
+                repuestosSelect.FechaModificacion = (DateTime?)(reader.IsDBNull("FechaModificacion") ? null : reader["FechaModificacion"]);
+                repuestosSelect.CreadoPor = Convert.ToString(reader["CreadoPor"]);
+                repuestosSelect.ModificadoPor = Convert.ToString(reader["ModificadoPor"]);
+
+                lisRespuestos.Add(repuestosSelect);
+            }
+            reader.Close();
+            return lisRespuestos;
         }
     }
 }

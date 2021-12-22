@@ -22,9 +22,24 @@ namespace SistemaTaller.BackEnd.API.Controllers
         }
         // GET: api/<VehiculosController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<VehiculosDto> Get()
         {
-            return new string[] { "value1", "value2" };
+            List<Vehiculos> lisVehiculos = Vehiculos.SeleccionarTodos();
+
+            List<VehiculosDto> lisVehiculosDtos = new();
+
+            foreach (var vehiculoSelect in lisVehiculos)
+            {
+                VehiculosDto vehiculoDto = new();
+
+                vehiculoDto.Matricula = vehiculoSelect.Matricula;
+                vehiculoDto.MarcaVehiculo = vehiculoSelect.MarcaVehiculo;
+                vehiculoDto.Modelo = vehiculoSelect.Modelo;
+
+                lisVehiculosDtos.Add(vehiculoDto);
+            }
+
+            return lisVehiculosDtos;
         }
 
         // GET api/<VehiculosController>/5

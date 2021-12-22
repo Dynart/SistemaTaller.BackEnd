@@ -8,7 +8,7 @@ namespace SistemaTaller.BackEnd.API.Services.Interfaces
 {
     public interface IVehiculosService
     {
-        IEnumerable<Vehiculos> SeleccionarTodos();
+        List<Vehiculos> SeleccionarTodos();
         Vehiculos SeleccionarPorId(string id);
         void Insertar(Vehiculos model);
         void Actualizar(Vehiculos model);
