@@ -5,6 +5,6 @@
 	@FechaModificacion DATETIME
 	AS
 	BEGIN
-	UPDATE MecanicosDeTalleres SET CedulaMecanico = @CedulaMecanico, CedulaJuridica = @CedulaJuridica, ModificadoPor = @ModificadoPor, FechaModificacion = GETDATE()
-	WHERE CedulaMecanico = CedulaMecanico
+	UPDATE MecanicosDeTalleres SET CedulaMecanico = @CedulaMecanico, CedulaJuridica = @CedulaJuridica, ModificadoPor = @ModificadoPor, FechaModificacion = @FechaModificacion
+	WHERE CedulaMecanico = @CedulaMecanico
 	END

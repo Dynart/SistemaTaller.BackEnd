@@ -90,7 +90,8 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
 
         public List<Clientes> SeleccionarTodos()
         {
-            var query = "SELECT * FROM vwClientes_SeleccionarTodo";
+            
+           var query = "select * from vwClientes_SeleccionarTodo";
             var comand = CreateCommand(query);
 
             SqlDataReader reader = comand.ExecuteReader();
@@ -113,6 +114,8 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
                 clientesSelect.FechaModificacion = (DateTime?)(reader.IsDBNull("FechaModificacion") ? null : reader["FechaModificacion"]);
                 clientesSelect.CreadoPor = Convert.ToString(reader["CreadoPor"]);
                 clientesSelect.ModificadoPor = Convert.ToString(reader["ModificadoPor"]);
+
+                lisClientes.Add(clientesSelect);
             }
             reader.Close();
 

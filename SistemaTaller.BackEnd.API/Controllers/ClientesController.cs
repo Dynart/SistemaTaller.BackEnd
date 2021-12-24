@@ -26,16 +26,21 @@ namespace SistemaTaller.BackEnd.API.Controllers
         {
             List<Clientes> lisClientes = Clientes.SeleccionarTodos();
 
-            List<ClientesDto> lisClientesDto = new List<ClientesDto>();
+            List<ClientesDto> lisClientesDto = new ();
 
-            foreach (var clienteSelect in lisClientes)
+            foreach (var clientesSelect in lisClientes)
             {
                 ClientesDto clientesDto = new();
 
-                clientesDto.CedulaCliente = clientesDto.CedulaCliente;
+                clientesDto.CedulaCliente = clientesSelect.CedulaCliente;
+                clientesDto.Nombre = clientesSelect.Nombre;
+                clientesDto.Apellidos = clientesSelect.Apellidos;
+                clientesDto.Telefono = clientesSelect.Telefono;
+                clientesDto.Email = clientesSelect.Email;
+                clientesDto.Direccion = clientesSelect.Direccion;
+                clientesDto.VehiculoMatricula = clientesSelect.VehiculoMatricula;
 
                 lisClientesDto.Add(clientesDto);
-
             }
             return lisClientesDto;
 

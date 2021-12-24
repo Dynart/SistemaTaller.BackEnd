@@ -17,9 +17,20 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
             this._transaction = transaction;
         }
 
-        public void Actualizar(Repuestos t)
+        public void Actualizar(Repuestos repuestos)
         {
-            throw new NotImplementedException();
+            var query = "UPDATE Repuestos SET CodigoRepuesto = @CodigoRepuesto, Marca = @Marca, Tipo = @Tipo, FechaCompra = @FechaCompra, Precio = @Precio, ModificadoPor = @ModificadoPor, @FechaModificacion = @FechaCompra WHERE CodigoRepuesto = @CodigoRepuesto";
+            var command = CreateCommand(query);
+
+            command.Parameters.AddWithValue("@CodigoRepuesto", repuestos.CodigoRepuesto);
+            command.Parameters.AddWithValue("@Marca", repuestos.Marca);
+            command.Parameters.AddWithValue("@Tipo", repuestos.Tipo);
+            command.Parameters.AddWithValue("@FechaCompra", repuestos.FechaCompra);
+            command.Parameters.AddWithValue("@Precio", repuestos.Precio);
+            command.Parameters.AddWithValue("@ModificadoPor", repuestos.CreadoPor);
+            command.Parameters.AddWithValue("@FechaModificacion", repuestos.FechaModificacion);
+
+            command.ExecuteNonQuery();
         }
 
         public void Elimnar()
@@ -71,7 +82,7 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
 
         public List<Repuestos> SeleccionarTodos()
         {
-            var query = "SELECT * FROM vwRepuestosDeReparacion_SeleccionarTodo";
+            var query = "SELECT * FROM vwRepuestos_SeleccionarTodo";
             var command = CreateCommand(query);
 
             SqlDataReader reader = command.ExecuteReader();

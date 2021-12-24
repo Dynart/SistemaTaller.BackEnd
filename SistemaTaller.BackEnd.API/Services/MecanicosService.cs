@@ -51,7 +51,14 @@ namespace SistemaTaller.BackEnd.API.Services
 
         public List<Mecanicos> SeleccionarTodos()
         {
-            throw new NotImplementedException();
+            List<Mecanicos> lisMecanicos = new();
+
+            using (var bd = BD.Conectar())
+            {
+                lisMecanicos = bd.Repositories.MecanicosRepository.SeleccionarTodos();
+                bd.SaveChanges();
+            }
+            return lisMecanicos;
         }
     }
 }

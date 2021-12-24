@@ -57,7 +57,7 @@ namespace SistemaTaller.BackEnd.API.Services
 
         public List<Vehiculos> SeleccionarTodos()
         {
-            List<Vehiculos> vehiculosList;
+            List<Vehiculos> vehiculosList = new ();
 
             using(var bd = BD.Conectar())
             {

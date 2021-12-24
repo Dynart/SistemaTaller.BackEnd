@@ -23,9 +23,24 @@ namespace SistemaTaller.BackEnd.API.Controllers
 
         // GET: api/<RepuestosController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<RepuestosDto> Get()
         {
-            return new string[] { "value1", "value2" };
+            List<Repuestos> lisRepuestos = Repuestos.SeleccionarTodos();
+
+            List<RepuestosDto> lisRepuestosDto = new ();
+
+            foreach (var repuestosSelect in lisRepuestos)
+            {
+                RepuestosDto repuestosDto = new();
+                repuestosDto.CodigoRepuesto = repuestosSelect.CodigoRepuesto;
+                repuestosDto.Marca = repuestosSelect.Marca;
+                repuestosDto.Tipo = repuestosSelect.Tipo;
+                repuestosDto.FechaCompra = repuestosSelect.FechaCompra;
+                repuestosDto.Precio = repuestosSelect.Precio;
+
+                lisRepuestosDto.Add(repuestosDto);
+            }
+            return lisRepuestosDto;
         }
 
         // GET api/<RepuestosController>/5
@@ -76,8 +91,34 @@ namespace SistemaTaller.BackEnd.API.Controllers
 
         // PUT api/<RepuestosController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(string id, [FromBody] RepuestosDto repuestosDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.Values);
+            }
+
+            Repuestos repuestosSelect = new ();
+            repuestosSelect = Repuestos.SeleccionarPorId(id);
+
+            if (repuestosSelect.CodigoRepuesto is null)
+            {
+                return NotFound("El Repuesto no existe");
+            }
+
+            Repuestos repuestosUpdate = new();
+
+            repuestosUpdate.CodigoRepuesto = repuestosDto.CodigoRepuesto;
+            repuestosUpdate.Marca = repuestosDto.Marca;
+            repuestosUpdate.Tipo = repuestosDto.Tipo;
+            repuestosUpdate.FechaCompra = Convert.ToDateTime(repuestosDto.FechaCompra);
+            repuestosUpdate.Precio = repuestosDto.Precio;
+
+            repuestosUpdate.FechaModificacion = System.DateTime.Now;
+            repuestosUpdate.ModificadoPor = "Dynart";
+
+            Repuestos.Actualizar(repuestosUpdate);
+            return Ok();
         }
 
         // DELETE api/<RepuestosController>/5

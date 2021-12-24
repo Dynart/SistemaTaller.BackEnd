@@ -48,7 +48,14 @@ namespace SistemaTaller.BackEnd.API.Services
 
         public List<Repuestos> SeleccionarTodos()
         {
-            throw new NotImplementedException();
+            List<Repuestos> lisRepuestos = new();
+
+            using (var bd = BD.Conectar())
+            {
+                lisRepuestos = bd.Repositories.RepuestosRepository.SeleccionarTodos();
+                bd.SaveChanges();
+            }
+            return lisRepuestos;
         }
     }
 }

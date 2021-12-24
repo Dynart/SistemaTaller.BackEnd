@@ -23,9 +23,28 @@ namespace SistemaTaller.BackEnd.API.Controllers
 
         // GET: api/<ReparacionesController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<ReparacionesDto> Get()
         {
-            return new string[] { "value1", "value2" };
+            List<Reparaciones> lisReparaciones = Reparaciones.SeleccionarTodos();
+
+            List<ReparacionesDto> lisReparacionesDto = new();
+
+            foreach (var reparacionesSelect in lisReparaciones)
+            {
+                ReparacionesDto reparacionesDto = new();
+
+                reparacionesDto.NumeroReparacion = reparacionesSelect.NumeroReparacion;
+                reparacionesDto.FechaEstimadaDeReparacion = reparacionesSelect.FechaEstimadaDeReparacion;
+                reparacionesDto.MontoManoDeObra = reparacionesSelect.MontoManoDeObra;
+                reparacionesDto.MontoRepuestos = reparacionesSelect.MontoRepuestos;
+                reparacionesDto.MontoTotal = reparacionesSelect.MontoTotal;
+                reparacionesDto.CedulaMecanico = reparacionesSelect.CedulaMecanico;
+                reparacionesDto.Matricula = reparacionesSelect.Matricula;
+                reparacionesDto.IdEstadoReparacion = reparacionesSelect.IdEstadoReparacion;
+
+                lisReparacionesDto.Add(reparacionesDto);
+            }
+            return lisReparacionesDto;
         }
 
         // GET api/<ReparacionesController>/5
@@ -84,8 +103,34 @@ namespace SistemaTaller.BackEnd.API.Controllers
 
         // PUT api/<ReparacionesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(string id, [FromBody] ReparacionesDto reparacionesDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.Values);
+            }
+
+            Reparaciones reparacionesSelect = new();
+            reparacionesSelect = Reparaciones.SeleccionarPorId(id);
+
+            if (reparacionesSelect.NumeroReparacion is 0)
+            {
+                return NotFound("La Reparacion no existe");
+            }
+
+            Reparaciones reparacionesUpdate = new();
+
+            reparacionesUpdate.MontoManoDeObra = reparacionesDto.MontoManoDeObra;
+            reparacionesUpdate.MontoRepuestos = reparacionesDto.MontoRepuestos;
+            reparacionesUpdate.CedulaMecanico = reparacionesDto.CedulaMecanico;
+            reparacionesUpdate.Matricula = reparacionesDto.Matricula;
+            reparacionesUpdate.IdEstadoReparacion = reparacionesDto.IdEstadoReparacion;
+
+            reparacionesUpdate.FechaModificacion = System.DateTime.Now;
+            reparacionesUpdate.ModificadoPor = "Dynart";
+
+            Reparaciones.Actualizar(reparacionesUpdate);
+            return Ok();
         }
 
         // DELETE api/<ReparacionesController>/5

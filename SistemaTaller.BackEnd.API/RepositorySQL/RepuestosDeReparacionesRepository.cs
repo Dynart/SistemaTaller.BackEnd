@@ -17,9 +17,18 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
             this._transaction = transaction;
         }
 
-        public void Actualizar(RepuestosDeReparaciones t)
+        public void Actualizar(RepuestosDeReparaciones repuestosDeReparaciones)
         {
-            throw new NotImplementedException();
+            var query = "UPDATE RepuestosDeReparaciones SET CodigoRepuesto = @CodigoRepuesto, PrecioRepuesto = @PrecioRepuesto, ModificadoPor = @ModificadoPor, FechaCreacion = @FechaModificacion WHERE CodigoRepuesto = @CodigoRepuesto";
+            var command = CreateCommand(query);
+
+            command.Parameters.AddWithValue("@CodigoRepuesto", repuestosDeReparaciones.CodigoRepuesto);
+            command.Parameters.AddWithValue("@NumeroReparacion", repuestosDeReparaciones.NumeroReparacion);
+            command.Parameters.AddWithValue("@PrecioRepuesto", repuestosDeReparaciones.PrecioRepuesto);
+            command.Parameters.AddWithValue("@ModificadoPor", repuestosDeReparaciones.ModificadoPor);
+            command.Parameters.AddWithValue("@FechaModificacion", repuestosDeReparaciones.FechaModificacion);
+
+            command.ExecuteNonQuery();
         }
 
         public void Elimnar()

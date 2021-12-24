@@ -23,9 +23,21 @@ namespace SistemaTaller.BackEnd.API.Controllers
 
         // GET: api/<EstadoReparacionesController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<EstadoReparacionesDto> Get()
         {
-            return new string[] { "value1", "value2" };
+            List<EstadoReparaciones> lisEstado = EstadoReparaciones.SeleccionarTodos();
+
+            List<EstadoReparacionesDto> lisEstadoDto = new();
+
+            foreach (var estadoSelect in lisEstado)
+            {
+                EstadoReparacionesDto estadoReparacionesDto = new();
+                estadoReparacionesDto.IdEstadoReparacion = estadoSelect.IdEstadoReparacion;
+                estadoReparacionesDto.NombreEstado = estadoSelect.NombreEstado;
+
+                lisEstadoDto.Add(estadoReparacionesDto);
+            }
+            return lisEstadoDto;
         }
 
         // GET api/<EstadoReparacionesController>/5

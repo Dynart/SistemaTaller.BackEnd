@@ -5,5 +5,5 @@
 	@FechaModificacion DATETIME
 	AS
 	BEGIN
-	UPDATE VehiculosDeClientes SET Matricula = @Matricula, CedulaCliente = @CedulaCliente, ModificadoPor = @ModificadoPor, FechaModificacion = GETDATE()
+	UPDATE VehiculosDeClientes SET Matricula = @Matricula, CedulaCliente = @CedulaCliente, ModificadoPor = @ModificadoPor, FechaModificacion = @FechaModificacion Where Matricula = @Matricula
 	END

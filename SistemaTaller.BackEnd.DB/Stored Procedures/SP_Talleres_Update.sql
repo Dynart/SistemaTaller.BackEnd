@@ -8,6 +8,6 @@
 	AS
 	BEGIN
 	UPDATE Talleres set CedulaJuridica = @CedulaJuridica, Nombre = @Nombre, Direccion = @Direccion, Telefono = @Telefono,
-	ModificadoPor = @ModificadoPor, FechaModificacion = GetDate()
-	WHERE CedulaJuridica = CedulaJuridica
+	ModificadoPor = @ModificadoPor, FechaModificacion = @FechaModificacion
+	WHERE CedulaJuridica = @CedulaJuridica
 	END

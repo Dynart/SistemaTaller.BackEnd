@@ -33,6 +33,9 @@ namespace SistemaTaller.BackEnd.API.Controllers
                 TalleresDto talleresDto = new();
 
                 talleresDto.CedulaJuridica = talleresSelect.CedulaJuridica;
+                talleresDto.Nombre = talleresSelect.Nombre;
+                talleresDto.Direccion = talleresSelect.Direccion;
+                talleresDto.Telefono = talleresSelect.Telefono;
 
                 lisTalleresDto.Add(talleresDto);
             }

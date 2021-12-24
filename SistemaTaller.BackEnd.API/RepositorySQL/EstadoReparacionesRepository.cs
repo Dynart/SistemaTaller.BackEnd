@@ -17,9 +17,18 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
             this._transaction = transaction;
         }
 
-        public void Actualizar(EstadoReparaciones t)
+        public void Actualizar(EstadoReparaciones estadoReparaciones)
         {
-            throw new NotImplementedException();
+            var query = "UPDATE EstadoReparaciones SET IdEstadoReparacion = @IdEstadoReparacion, NombreEstado = @NombreEstado, ModificadoPor = @ModificadoPor, FechaCreacion = @FechaModificacion WHERE IdEstadoReparacion = @IdEstadoReparacion";
+            var command = CreateCommand(query);
+
+            command.Parameters.AddWithValue("@IdEstadoReparacion", estadoReparaciones.IdEstadoReparacion);
+            command.Parameters.AddWithValue("@NombreEstado", estadoReparaciones.NombreEstado);
+            command.Parameters.AddWithValue("@ModificadoPor", estadoReparaciones.ModificadoPor);
+            command.Parameters.AddWithValue("@FechaModificacion", estadoReparaciones.FechaModificacion);
+
+            command.ExecuteNonQuery();
+
         }
 
         public void Elimnar()
@@ -82,6 +91,7 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
                 estadoSelect.CreadoPor = Convert.ToString(reader["CreadoPor"]);
                 estadoSelect.ModificadoPor = Convert.ToString(reader["ModificadoPor"]);
 
+                lisEstadoReparaciones.Add(estadoSelect);
             }
             reader.Close();
             return lisEstadoReparaciones;

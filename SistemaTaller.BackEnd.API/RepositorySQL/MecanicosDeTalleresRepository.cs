@@ -16,9 +16,15 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
             this._context = context;
             this._transaction = transaction;
         }
-        public void Actualizar(MecanicosDeTalleres t)
+        public void Actualizar(MecanicosDeTalleres mecanicosDeTalleres)
         {
-            throw new NotImplementedException();
+            var query = "UPDATE MecanicosDeTalleres SET CedulaMecanico = @CedulaMecanico, CedulaJuridica = @CedulaJuridica, ModificadoPor = @ModificadoPor, FechaModificacion = @FechaModificacion WHERE CedulaMecanico = @CedulaMecanico";
+            var command = CreateCommand(query);
+
+            command.Parameters.AddWithValue("@CedulaMecanico", mecanicosDeTalleres.CedulaMecanico);
+            command.Parameters.AddWithValue("@CedulaJuridica", mecanicosDeTalleres.CedulaJuridica);
+            command.Parameters.AddWithValue("@ModificadoPor", mecanicosDeTalleres.ModificadoPor);
+            command.Parameters.AddWithValue("@FechaModificacion", mecanicosDeTalleres.FechaModificacion);
         }
 
         public void Elimnar()
@@ -82,6 +88,8 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
                 mecanicosTalleresSelect.FechaModificacion = (DateTime?)(reader.IsDBNull("FechaModificacion") ? null : reader["FechaModificacion"]);
                 mecanicosTalleresSelect.CreadoPor = Convert.ToString(reader["CreadoPor"]);
                 mecanicosTalleresSelect.ModificadoPor = Convert.ToString(reader["ModificadoPor"]);
+
+                lisMecanicosDeTalleres.Add(mecanicosTalleresSelect);
             }
 
             reader.Close();

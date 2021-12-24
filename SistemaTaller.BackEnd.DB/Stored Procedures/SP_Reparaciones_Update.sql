@@ -11,6 +11,6 @@
 	BEGIN
 	UPDATE Reparaciones SET MontoManoDeObra = @MontoManoDeObra, MontoRepuestos = @MontoRepuestos, 
 	CedulaMecanico = @CedulaMecanico, Matricula = @Matricula, IdEstadoReparacion = @IdEstadoReparacion, 
-	ModificadoPor = @ModificadoPor, FechaCreacion = GETDATE()
+	ModificadoPor = @ModificadoPor, FechaModificacion = @FechaModificacion
 	WHERE NumeroReparacion = @NumeroReparacion
 	END

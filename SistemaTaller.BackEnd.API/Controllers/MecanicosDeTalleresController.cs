@@ -23,9 +23,21 @@ namespace SistemaTaller.BackEnd.API.Controllers
 
         // GET: api/<MecanicosDeTalleresController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<MecanicosDeTalleresDto> Get()
         {
-            return new string[] { "value1", "value2" };
+            List<MecanicosDeTalleres> lisMecanicos = MecanicosDeTalleres.SeleccionarTodos();
+
+            List<MecanicosDeTalleresDto> lisMecanicosDto = new();
+
+            foreach (var mecanicosDeTallerSelect in lisMecanicos)
+            {
+                MecanicosDeTalleresDto mecanicosDeTalleresDto = new();
+                mecanicosDeTalleresDto.CedulaMecanico = mecanicosDeTallerSelect.CedulaMecanico;
+                mecanicosDeTalleresDto.CedulaJuridica = mecanicosDeTallerSelect.CedulaJuridica;
+
+                lisMecanicosDto.Add(mecanicosDeTalleresDto);
+            }
+            return lisMecanicosDto;
         }
 
         // GET api/<MecanicosDeTalleresController>/5
@@ -71,8 +83,33 @@ namespace SistemaTaller.BackEnd.API.Controllers
 
         // PUT api/<MecanicosDeTalleresController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(string id, [FromBody] MecanicosDeTalleresDto mecanicosDeTalleresDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.Values);
+            }
+
+            MecanicosDeTalleres mecanicosSelect = new();
+            mecanicosSelect = MecanicosDeTalleres.SeleccionarPorId(id);
+
+            if (mecanicosSelect.CedulaMecanico is null)
+            {
+                return NotFound("El Mecanico no existe");
+            }
+
+            MecanicosDeTalleres mecanicosUpdate = new();
+
+            mecanicosUpdate.CedulaMecanico = mecanicosDeTalleresDto.CedulaMecanico;
+            mecanicosUpdate.CedulaJuridica = mecanicosDeTalleresDto.CedulaJuridica;
+
+            mecanicosUpdate.FechaModificacion = System.DateTime.Now;
+            mecanicosUpdate.ModificadoPor = "Dynart";
+
+            MecanicosDeTalleres.Actualizar(mecanicosUpdate);
+
+            return Ok();
+
         }
 
         // DELETE api/<MecanicosDeTalleresController>/5

@@ -17,9 +17,20 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
             this._transaction = transaction;
         }
       
-        public void Actualizar(Reparaciones t)
+        public void Actualizar(Reparaciones reparaciones)
         {
-            throw new NotImplementedException();
+            var query = "UPDATE Reparaciones SET MontoManoDeObra = @MontoManoDeObra, MontoRepuestos = @MontoRepuestos, CedulaMecanico = @CedulaMecanico, Matricula = @Matricula, IdEstadoReparacion = @IdEstadoReparacion, ModificadoPor = @ModificadoPor, FechaModificacion = @FechaModificacionWHERE NumeroReparacion = @NumeroReparacion";
+            var command = CreateCommand(query);
+
+            command.Parameters.AddWithValue("@MontoManoDeObra", reparaciones.MontoManoDeObra);
+            command.Parameters.AddWithValue("@MontoRepuestos", reparaciones.MontoRepuestos);
+            command.Parameters.AddWithValue("@CedulaMecanico", reparaciones.CedulaMecanico);
+            command.Parameters.AddWithValue("@Matricula", reparaciones.Matricula);
+            command.Parameters.AddWithValue("@IdEstadoReparacion", reparaciones.IdEstadoReparacion);
+            command.Parameters.AddWithValue("@ModificadoPor", reparaciones.ModificadoPor);
+            command.Parameters.AddWithValue("@FechaModificacion", reparaciones.FechaModificacion);
+
+            command.ExecuteNonQuery();
         }
 
         public void Elimnar()
@@ -99,6 +110,8 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
                 reparacionesSelect.FechaModificacion = (DateTime?)(reader.IsDBNull("FechaModificacion") ? null : reader["FechaModificacion"]);
                 reparacionesSelect.CreadoPor = Convert.ToString(reader["CreadoPor"]);
                 reparacionesSelect.ModificadoPor = Convert.ToString(reader["ModificadoPor"]);
+
+                listReparaciones.Add(reparacionesSelect);
             }
             reader.Close();
 

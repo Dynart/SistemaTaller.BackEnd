@@ -22,9 +22,25 @@ namespace SistemaTaller.BackEnd.API.Controllers
         }
         // GET: api/<MecanicosController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<MecanicosDto> Get()
         {
-            return new string[] { "value1", "value2" };
+            List<Mecanicos> lisMecanicos = Mecanicos.SeleccionarTodos();
+
+            List<MecanicosDto> lisMecanicosDto = new();
+
+            foreach (var mecanicosSelect in lisMecanicos)
+            {
+                MecanicosDto mecanicosDto = new();
+
+                mecanicosDto.CedulaMecanico = mecanicosSelect.CedulaMecanico;
+                mecanicosDto.Nombre = mecanicosSelect.Nombre;
+                mecanicosDto.Apellidos = mecanicosSelect.Apellidos;
+                mecanicosDto.Telefono = mecanicosSelect.Telefono;
+                mecanicosDto.Salario = mecanicosSelect.Salario;
+
+                lisMecanicosDto.Add(mecanicosDto);
+            }
+            return lisMecanicosDto;
         }
 
         // GET api/<MecanicosController>/5
@@ -80,8 +96,37 @@ namespace SistemaTaller.BackEnd.API.Controllers
 
         // PUT api/<MecanicosController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(string id, [FromBody] MecanicosDto mecanicosDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.Values);
+            }
+
+            Mecanicos mecanicosSelect = new Mecanicos();
+
+            mecanicosSelect = Mecanicos.SeleccionarPorId(id);
+
+            if (mecanicosSelect.CedulaMecanico is null)
+            {
+                return NotFound("El MEcanico no existe");
+            }
+
+            Mecanicos mecanicosUpdate = new();
+
+            mecanicosUpdate.CedulaMecanico = mecanicosDto.CedulaMecanico;
+            mecanicosUpdate.Nombre = mecanicosDto.Nombre;
+            mecanicosUpdate.Apellidos = mecanicosDto.Apellidos;
+            mecanicosUpdate.Telefono = mecanicosDto.Telefono;
+            mecanicosUpdate.Salario = mecanicosDto.Salario;
+
+            mecanicosUpdate.FechaModificacion = System.DateTime.Now;
+            mecanicosUpdate.ModificadoPor = "Dynart";
+
+            Mecanicos.Actualizar(mecanicosUpdate);
+
+            return Ok();
+
         }
 
         // DELETE api/<MecanicosController>/5

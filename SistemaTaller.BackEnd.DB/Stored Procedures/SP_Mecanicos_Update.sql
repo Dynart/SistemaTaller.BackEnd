@@ -9,6 +9,6 @@
 	AS
 	BEGIN
 	UPDATE Mecanicos set CedulaMecanico = @CedulaMecanico, Nombre = @Nombre, Apellidos = @Apellidos, Telefono = @Telefono, Salario = @Salario,
-	ModificadoPor = @ModificadoPor, FechaModificacion = GetDate()
-	WHERE CedulaMecanico = CedulaMecanico
+	ModificadoPor = @ModificadoPor, FechaModificacion = @FechaModificacion
+	WHERE CedulaMecanico = @CedulaMecanico
 	END

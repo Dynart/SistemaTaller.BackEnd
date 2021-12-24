@@ -54,7 +54,7 @@ namespace SistemaTaller.BackEnd.API.Services
 
         public List<Clientes> SeleccionarTodos()
         {
-            List<Clientes> clientesList;
+            List<Clientes> clientesList = new();
 
             using (var bd = BD.Conectar())
             {

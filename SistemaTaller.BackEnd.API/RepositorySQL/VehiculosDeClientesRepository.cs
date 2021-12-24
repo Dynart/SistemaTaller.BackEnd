@@ -17,9 +17,18 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
             this._transaction = transaction;
         }
 
-        public void Actualizar(VehiculosDeClientes t)
+        public void Actualizar(VehiculosDeClientes vehiculosDeClientes)
         {
-            throw new NotImplementedException();
+            var query = "UPDATE VehiculosDeClientes SET Matricula = @Matricula, CedulaCliente = @CedulaCliente, ModificadoPor = @ModificadoPor, FechaModificacion = @FechaModificacion";
+            var command = CreateCommand(query);
+
+            command.Parameters.AddWithValue("@Matricula", vehiculosDeClientes.Matricula);
+            command.Parameters.AddWithValue("@CedulaCliente", vehiculosDeClientes.CedulaCliente);
+            command.Parameters.AddWithValue("@ModificadoPor", vehiculosDeClientes.ModificadoPor);
+            command.Parameters.AddWithValue("@FechaModificacion", vehiculosDeClientes.FechaModificacion);
+
+            command.ExecuteNonQuery();
+
         }
 
         public void Elimnar()

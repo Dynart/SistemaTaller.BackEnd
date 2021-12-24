@@ -14,8 +14,7 @@ namespace SistemaTaller.BackEnd.API.DTOS
         [Required(ErrorMessage = "{0} es un campo obligatorio")]
         [MaxLength(15, ErrorMessage = "{0} tiene que tener maximo {1} caracteres")]
         public string CedulaCliente { get; set; }
-        [Required(ErrorMessage = "{0} es un campo obligatorio")]
-        [MaxLength(15, ErrorMessage = "{0} tiene que tener maximo {1} caracteres")]
+       
         public bool Activo { get; set; }
 
 

@@ -5,5 +5,5 @@
 	@FechaModificacion DATETIME
 	AS
 	BEGIN
-	UPDATE EstadoReparaciones SET IdEstadoReparacion = @IdEstadoReparacion, NombreEstado = @NombreEstado, ModificadoPor = @ModificadoPor, FechaCreacion = GETDATE()
+	UPDATE EstadoReparaciones SET IdEstadoReparacion = @IdEstadoReparacion, NombreEstado = @NombreEstado, ModificadoPor = @ModificadoPor, FechaCreacion = @FechaModificacion WHERE IdEstadoReparacion = @IdEstadoReparacion
 	END

@@ -47,7 +47,14 @@ namespace SistemaTaller.BackEnd.API.Services
 
         public List<EstadoReparaciones> SeleccionarTodos()
         {
-            throw new NotImplementedException();
+            List<EstadoReparaciones> lisEstadoReparaciones = new();
+
+            using (var bd = BD.Conectar())
+            {
+                lisEstadoReparaciones = bd.Repositories.EstadoReparacionesRepository.SeleccionarTodos();
+                bd.SaveChanges();
+            }
+            return lisEstadoReparaciones;
         }
     }
 }

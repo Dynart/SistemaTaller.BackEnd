@@ -22,9 +22,23 @@ namespace SistemaTaller.BackEnd.API.Controllers
         }
         // GET: api/<RepuestosDeReparacionesController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<RepuestosDeReparacionesDto> Get()
         {
-            return new string[] { "value1", "value2" };
+            List<RepuestosDeReparaciones> lisRepuestosDeReparaciones = RepuestosDeReparaciones.SeleccionarTodos();
+
+            List<RepuestosDeReparacionesDto> lisRepuestosDeReparacionesDto = new();
+
+            foreach (var repuestoSelect in lisRepuestosDeReparaciones)
+            {
+                RepuestosDeReparacionesDto repuestosDeReparacionesDto = new();
+
+                repuestosDeReparacionesDto.CodigoRepuesto = repuestoSelect.CodigoRepuesto;
+                repuestosDeReparacionesDto.NumeroReparacion = repuestoSelect.NumeroReparacion;
+                repuestosDeReparacionesDto.PrecioRepuesto = repuestoSelect.PrecioRepuesto;
+
+                lisRepuestosDeReparacionesDto.Add(repuestosDeReparacionesDto);
+            }
+            return lisRepuestosDeReparacionesDto;
         }
 
         // GET api/<RepuestosDeReparacionesController>/5

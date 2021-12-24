@@ -49,7 +49,14 @@ namespace SistemaTaller.BackEnd.API.Services
 
         public List<Talleres> SeleccionarTodos()
         {
-            throw new NotImplementedException();
+            List<Talleres> TalleresSelect = new();
+
+            using (var bd = BD.Conectar())
+            {
+                TalleresSelect = bd.Repositories.TalleresRepository.SeleccionarTodos();
+                bd.SaveChanges();
+            }
+            return TalleresSelect;
         }
     }
 }

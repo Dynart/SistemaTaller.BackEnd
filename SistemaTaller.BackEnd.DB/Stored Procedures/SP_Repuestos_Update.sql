@@ -9,5 +9,5 @@
 	AS
 	BEGIN
 	UPDATE Repuestos SET CodigoRepuesto = @CodigoRepuesto, Marca = @Marca, Tipo = @Tipo, FechaCompra = @FechaCompra, 
-	Precio = @Precio, ModificadoPor = @ModificadoPor, @FechaModificacion = GETDATE()
+	Precio = @Precio, ModificadoPor = @ModificadoPor, FechaModificacion = @FechaModificacion WHERE CodigoRepuesto = @CodigoRepuesto
 	END

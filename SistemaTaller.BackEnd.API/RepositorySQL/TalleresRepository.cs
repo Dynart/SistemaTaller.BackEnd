@@ -16,9 +16,19 @@ namespace SistemaTaller.BackEnd.API.RepositorySQL
             this._context = context;
             this._transaction = transaction;
         }
-        public void Actualizar(Talleres t)
+        public void Actualizar(Talleres talleres)
         {
-            throw new NotImplementedException();
+            var query = "	UPDATE Talleres set CedulaJuridica = @CedulaJuridica, Nombre = @Nombre, Direccion = @Direccion, Telefono = @Telefono, ModificadoPor = @ModificadoPor, FechaModificacion = @FechaModificacion WHERE CedulaJuridica = @CedulaJuridica";
+            var command = CreateCommand(query);
+
+            command.Parameters.AddWithValue("@CedulaJuridica", talleres.CedulaJuridica);
+            command.Parameters.AddWithValue("@Nombre", talleres.Nombre);
+            command.Parameters.AddWithValue("@Direccion", talleres.Direccion);
+            command.Parameters.AddWithValue("@Telefono", talleres.Telefono);
+            command.Parameters.AddWithValue("@ModificadoPor", talleres.ModificadoPor);
+            command.Parameters.AddWithValue("@FechaModificacion", talleres.FechaModificacion);
+
+            command.ExecuteNonQuery();
         }
 
         public void Elimnar()
